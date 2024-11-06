@@ -2,7 +2,7 @@ namespace football_game
 {
     public partial class Form1 : Form
     {
-        List<string> KeeperPosition = new List<string> { "left", "right", "top", "topLeft", "topRight"};
+        List<string> KeeperPosition = new List<string> { "left", "right", "top"};
         List<PictureBox> goalTarget;
         int ballX = 0;
         int ballY = 0;
@@ -12,26 +12,15 @@ namespace football_game
         string playerTarget;
         bool aimSet = false;
         Random random = new Random();
-
         public Form1()
         {
             InitializeComponent();
-            goalTarget = new List<PictureBox> { left, right, top, topLeft, topRight };
-        }
-
-        private void lblScore_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void goalKeeper_Click(object sender, EventArgs e)
-        {
-
+            goalTarget = new List<PictureBox> { left, right, top};
         }
 
         private void SetGoalTargetEvent(object sender, EventArgs e)
         {
-            if(aimSet == true) { return; }
+            if (aimSet == true) { return; }
 
             BallTimer.Start();
             KeeperTimer.Start();
@@ -40,13 +29,6 @@ namespace football_game
             var senderObject = (PictureBox)sender;
             senderObject.BackColor = Color.Beige;
 
-            if(senderObject.Tag.ToString() == "topRight")
-            {
-                ballX = -7;
-                ballY = 15;
-                playerTarget = senderObject.Tag.ToString();
-                aimSet = true;
-            }
             if (senderObject.Tag.ToString() == "right")
             {
                 ballX = -11;
@@ -58,13 +40,6 @@ namespace football_game
             {
                 ballX = 0;
                 ballY = 20;
-                playerTarget = senderObject.Tag.ToString();
-                aimSet = true;
-            }
-            if (senderObject.Tag.ToString() == "topLeft")
-            {
-                ballX = 8;
-                ballY = 15;
                 playerTarget = senderObject.Tag.ToString();
                 aimSet = true;
             }
@@ -88,19 +63,11 @@ namespace football_game
                     goalKeeper.Top = 204;
                     break;
                 case "right":
-                    goalKeeper.Left -= 6;
+                    goalKeeper.Left += 6;
                     goalKeeper.Top = 204;
                     break;
                 case "top":
                     goalKeeper.Top -= 6;
-                    break;
-                case "topLeft":
-                    goalKeeper.Left -= 6;
-                    goalKeeper.Top -= 3;
-                    break;
-                case "topRight":
-                    goalKeeper.Left += 6;
-                    goalKeeper.Top -= 3;
                     break;
             }
 
@@ -119,9 +86,9 @@ namespace football_game
             football.Left -= ballX;
             football.Top -= ballY;
 
-            foreach(PictureBox x in goalTarget)
+            foreach (PictureBox x in goalTarget)
             {
-                if(football.Bounds.IntersectsWith(x.Bounds))
+                if (football.Bounds.IntersectsWith(x.Bounds))
                 {
                     football.Location = new Point(430, 500);
                     ballX = 0;
@@ -134,15 +101,15 @@ namespace football_game
 
         private void CheckScore()
         {
-            if(state == playerTarget)
+            if (state == playerTarget)
             {
                 miss++;
-                lblMissed.Text = "Missed: " + miss;
+                lblMissed.Text = "Ω«¡°: " + miss;
             }
             else
             {
                 goal++;
-                lblScore.Text = "Scored: " + goal;
+                lblScore.Text = "µÊ¡°: " + goal;
             }
         }
 
@@ -162,12 +129,6 @@ namespace football_game
                     break;
                 case 2:
                     goalKeeper.Image = Properties.Resources.top_save_small;
-                    break;
-                case 3:
-                    goalKeeper.Image = Properties.Resources.top_left_save_small;
-                    break;
-                case 4:
-                    goalKeeper.Image = Properties.Resources.top_right_save_small;
                     break;
             }
         }

@@ -33,18 +33,14 @@
             lblMissed = new Label();
             left = new PictureBox();
             right = new PictureBox();
-            topLeft = new PictureBox();
             top = new PictureBox();
-            topRight = new PictureBox();
             goalKeeper = new PictureBox();
             football = new PictureBox();
             KeeperTimer = new System.Windows.Forms.Timer(components);
             BallTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)left).BeginInit();
             ((System.ComponentModel.ISupportInitialize)right).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)topLeft).BeginInit();
             ((System.ComponentModel.ISupportInitialize)top).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)topRight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)goalKeeper).BeginInit();
             ((System.ComponentModel.ISupportInitialize)football).BeginInit();
             SuspendLayout();
@@ -57,10 +53,9 @@
             lblScore.ForeColor = Color.White;
             lblScore.Location = new Point(11, 10);
             lblScore.Name = "lblScore";
-            lblScore.Size = new Size(124, 40);
+            lblScore.Size = new Size(110, 40);
             lblScore.TabIndex = 0;
-            lblScore.Text = "score: 0";
-            lblScore.Click += lblScore_Click;
+            lblScore.Text = "득점: 0";
             // 
             // lblMissed
             // 
@@ -70,9 +65,9 @@
             lblMissed.ForeColor = Color.White;
             lblMissed.Location = new Point(741, 9);
             lblMissed.Name = "lblMissed";
-            lblMissed.Size = new Size(148, 40);
+            lblMissed.Size = new Size(110, 40);
             lblMissed.TabIndex = 1;
-            lblMissed.Text = "Missed: 0";
+            lblMissed.Text = "실점: 0";
             // 
             // left
             // 
@@ -100,19 +95,6 @@
             right.Tag = "right";
             right.Click += SetGoalTargetEvent;
             // 
-            // topLeft
-            // 
-            topLeft.BackColor = Color.Yellow;
-            topLeft.Image = Properties.Resources.target;
-            topLeft.Location = new Point(199, 78);
-            topLeft.Name = "topLeft";
-            topLeft.Size = new Size(40, 40);
-            topLeft.SizeMode = PictureBoxSizeMode.StretchImage;
-            topLeft.TabIndex = 4;
-            topLeft.TabStop = false;
-            topLeft.Tag = "topLeft";
-            topLeft.Click += SetGoalTargetEvent;
-            // 
             // top
             // 
             top.BackColor = Color.Yellow;
@@ -126,19 +108,6 @@
             top.Tag = "top";
             top.Click += SetGoalTargetEvent;
             // 
-            // topRight
-            // 
-            topRight.BackColor = Color.Yellow;
-            topRight.Image = Properties.Resources.target;
-            topRight.Location = new Point(673, 78);
-            topRight.Name = "topRight";
-            topRight.Size = new Size(40, 40);
-            topRight.SizeMode = PictureBoxSizeMode.StretchImage;
-            topRight.TabIndex = 6;
-            topRight.TabStop = false;
-            topRight.Tag = "topRight";
-            topRight.Click += SetGoalTargetEvent;
-            // 
             // goalKeeper
             // 
             goalKeeper.BackColor = Color.Transparent;
@@ -149,7 +118,6 @@
             goalKeeper.SizeMode = PictureBoxSizeMode.AutoSize;
             goalKeeper.TabIndex = 7;
             goalKeeper.TabStop = false;
-            goalKeeper.Click += goalKeeper_Click;
             // 
             // football
             // 
@@ -164,12 +132,12 @@
             // 
             // KeeperTimer
             // 
-            KeeperTimer.Interval = 20;
+            KeeperTimer.Interval = 5;
             KeeperTimer.Tick += KeeperTimerEvent;
             // 
             // BallTimer
             // 
-            BallTimer.Interval = 20;
+            BallTimer.Interval = 5;
             BallTimer.Tick += BallTimerEvent;
             // 
             // Form1
@@ -181,9 +149,7 @@
             ClientSize = new Size(899, 678);
             Controls.Add(football);
             Controls.Add(goalKeeper);
-            Controls.Add(topRight);
             Controls.Add(top);
-            Controls.Add(topLeft);
             Controls.Add(right);
             Controls.Add(left);
             Controls.Add(lblMissed);
@@ -193,9 +159,7 @@
             Text = "Football game";
             ((System.ComponentModel.ISupportInitialize)left).EndInit();
             ((System.ComponentModel.ISupportInitialize)right).EndInit();
-            ((System.ComponentModel.ISupportInitialize)topLeft).EndInit();
             ((System.ComponentModel.ISupportInitialize)top).EndInit();
-            ((System.ComponentModel.ISupportInitialize)topRight).EndInit();
             ((System.ComponentModel.ISupportInitialize)goalKeeper).EndInit();
             ((System.ComponentModel.ISupportInitialize)football).EndInit();
             ResumeLayout(false);
@@ -208,9 +172,7 @@
         private Label lblMissed;
         private PictureBox left;
         private PictureBox right;
-        private PictureBox topLeft;
         private PictureBox top;
-        private PictureBox topRight;
         private PictureBox goalKeeper;
         private PictureBox football;
         private System.Windows.Forms.Timer KeeperTimer;
