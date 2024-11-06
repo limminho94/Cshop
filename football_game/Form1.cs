@@ -18,6 +18,7 @@ namespace football_game
             goalTarget = new List<PictureBox> { left, right, top};
         }
 
+        
         private void SetGoalTargetEvent(object sender, EventArgs e)
         {
             if (aimSet == true) { return; }
