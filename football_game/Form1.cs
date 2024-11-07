@@ -17,13 +17,16 @@ namespace football_game
         int ballY = 0;
         int goal = 0;
         int miss = 0;
+        int num = 0;
         string state;
         string playerTarget;
         bool aimSet = false;
         Random random = new Random();
-
-        public Form1()
+        
+        public Form1(int a)
         {
+            // PlayerChoice에서 받은 매개변수 값을 num에 담는다.
+            num = a;
             InitializeComponent();
             ConnectToServer();
             goalTarget = new List<PictureBox> { left, right, top};
@@ -35,7 +38,7 @@ namespace football_game
             {
                 client = new TcpClient();
                 // 서버 IP 주소와 포트
-                await client.ConnectAsync("127.0.0.1", 9900);
+                await client.ConnectAsync("10.10.20.116", 9900);
                 stream = client.GetStream();
                 await ReceiveDataAsync();
 
@@ -57,6 +60,8 @@ namespace football_game
                     string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     Debug.WriteLine("서버에서 받은 값: " + response);
                 }
+
+                
             }
             catch (Exception ex)
             {
@@ -67,13 +72,20 @@ namespace football_game
         {
             if (aimSet == true) { return; }
 
-            BallTimer.Start();
-            KeeperTimer.Start();
-            ChangeGoalKeeperImage();
+            if (num == 1)
+            {
+                BallTimer.Start();
+                MessageBox.Show("상대방을 기다리고 있습니다.");
+            }
+            else if (num == 2)
+            {
+                //BallTimer.Start();
+                KeeperTimer.Start();
+                ChangeGoalKeeperImage();
+            }
 
             var senderObject = (PictureBox)sender;
             senderObject.BackColor = Color.Beige;
-            
             
             if (senderObject.Tag.ToString() == "right")
             {
@@ -96,9 +108,12 @@ namespace football_game
                 playerTarget = senderObject.Tag.ToString();
                 aimSet = true;
             }
-            Debug.WriteLine(playerTarget);
+
+            Debug.WriteLine(num + playerTarget);
+
             // playerTarget 값을 인코딩 후 바이트배열 data에 담기
-            byte[] data = Encoding.UTF8.GetBytes(playerTarget);
+            string user = num.ToString();
+            byte[] data = Encoding.UTF8.GetBytes(user + playerTarget);
             // data 서버에 전송
             await stream.WriteAsync(data, 0, data.Length);
 

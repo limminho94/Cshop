@@ -44,6 +44,9 @@ class Program
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     Console.WriteLine("수신된 메시지: " + message);
 
+                    string num = message.Substring(0,1);
+                    string tar = message.Substring(1);
+
                     // 인코딩하여 다시 서버에 전송
                     byte[] response = Encoding.UTF8.GetBytes(message);
                     await stream.WriteAsync(response, 0, response.Length);

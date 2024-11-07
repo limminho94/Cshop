@@ -19,18 +19,19 @@ namespace football_game
         {
             InitializeComponent();
         }
-        
+        // 수비 플레이어 2
         private void player2_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            int num = 2;
+            Form1 form1 = new Form1(num);
             form1.Show();
         }
-
+        // 공격 플레이어 1
         private void player1_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            int num = 1;
+            Form1 form1 = new Form1(num);
             form1.Show();
-            //this.Hide();
         }
     }
 }
