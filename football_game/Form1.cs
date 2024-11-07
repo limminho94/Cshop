@@ -1,7 +1,12 @@
+using System.IO;
+using System.Net.Sockets;
+
 namespace football_game
 {
     public partial class Form1 : Form
     {
+        private TcpClient client;
+        private NetworkStream stream;
         List<string> KeeperPosition = new List<string> { "left", "right", "top"};
         List<PictureBox> goalTarget;
         int ballX = 0;
@@ -12,13 +17,29 @@ namespace football_game
         string playerTarget;
         bool aimSet = false;
         Random random = new Random();
+
         public Form1()
         {
             InitializeComponent();
+            ConnectToServer();
             goalTarget = new List<PictureBox> { left, right, top};
         }
+        // 서버연결
+        private async void ConnectToServer()
+        {
+            try
+            {
+                client = new TcpClient();
+                // 서버 IP 주소와 포트
+                await client.ConnectAsync("127.0.0.1", 9900);
+                stream = client.GetStream();
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show("서버에 연결할 수 없습니다: " + ex.Message);
+            }
+}
 
-        
         private void SetGoalTargetEvent(object sender, EventArgs e)
         {
             if (aimSet == true) { return; }
@@ -29,7 +50,7 @@ namespace football_game
 
             var senderObject = (PictureBox)sender;
             senderObject.BackColor = Color.Beige;
-
+            // ㄴㄴㄴㄴ
             if (senderObject.Tag.ToString() == "right")
             {
                 ballX = -11;
@@ -132,6 +153,13 @@ namespace football_game
                     goalKeeper.Image = Properties.Resources.top_save_small;
                     break;
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 창을 닫을 때 연결을 종료
+            stream?.Close();
+            client?.Close();
         }
     }
 }
