@@ -1,5 +1,9 @@
+using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace football_game
 {
@@ -33,14 +37,33 @@ namespace football_game
                 // 서버 IP 주소와 포트
                 await client.ConnectAsync("127.0.0.1", 9900);
                 stream = client.GetStream();
-        }
+                await ReceiveData();
+
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("서버에 연결할 수 없습니다: " + ex.Message);
             }
-}
-
-        private void SetGoalTargetEvent(object sender, EventArgs e)
+        }
+        // 서버에서 오는 데이터 받기
+        private async Task ReceiveData()
+        {
+            try
+            {
+                byte[] buffer = new byte[256];
+                int bytesRead;
+                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+                {
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Debug.WriteLine("서버에서 받은 값: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("메시지를 받는 중 오류가 발생했습니다: " + ex.Message);
+            }
+        }
+        private async void SetGoalTargetEvent(object sender, EventArgs e)
         {
             if (aimSet == true) { return; }
 
@@ -50,7 +73,7 @@ namespace football_game
 
             var senderObject = (PictureBox)sender;
             senderObject.BackColor = Color.Beige;
-            // ㄴㄴㄴㄴ
+            
             if (senderObject.Tag.ToString() == "right")
             {
                 ballX = -11;
@@ -72,6 +95,11 @@ namespace football_game
                 playerTarget = senderObject.Tag.ToString();
                 aimSet = true;
             }
+            Debug.WriteLine(playerTarget);
+            // playerTarget 값을 인코딩 후 바이트배열 data에 담기
+            byte[] data = Encoding.UTF8.GetBytes(playerTarget);
+            // data 서버에 전송
+            await stream.WriteAsync(data, 0, data.Length);
 
             CheckScore();
         }
@@ -155,11 +183,11 @@ namespace football_game
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // 창을 닫을 때 연결을 종료
-            stream?.Close();
-            client?.Close();
-        }
+        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    // 창을 닫을 때 연결을 종료
+        //    stream?.Close();
+        //    client?.Close();
+        //}
     }
 }
