@@ -37,7 +37,7 @@ namespace football_game
                 // 서버 IP 주소와 포트
                 await client.ConnectAsync("127.0.0.1", 9900);
                 stream = client.GetStream();
-                await ReceiveData();
+                await ReceiveDataAsync();
 
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace football_game
             }
         }
         // 서버에서 오는 데이터 받기
-        private async Task ReceiveData()
+        private async Task ReceiveDataAsync()
         {
             try
             {
@@ -73,6 +73,7 @@ namespace football_game
 
             var senderObject = (PictureBox)sender;
             senderObject.BackColor = Color.Beige;
+            
             
             if (senderObject.Tag.ToString() == "right")
             {
