@@ -25,6 +25,7 @@ namespace football_game
             int num = 2;
             Form1 form1 = new Form1(num);
             form1.Show();
+            //this.Hide();
         }
         // 공격 플레이어 1
         private void player1_Click(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace football_game
             int num = 1;
             Form1 form1 = new Form1(num);
             form1.Show();
+            //this.Hide();
         }
     }
 }

@@ -38,6 +38,7 @@
             football = new PictureBox();
             KeeperTimer = new System.Windows.Forms.Timer(components);
             BallTimer = new System.Windows.Forms.Timer(components);
+            gameStatelbl = new Label();
             ((System.ComponentModel.ISupportInitialize)left).BeginInit();
             ((System.ComponentModel.ISupportInitialize)right).BeginInit();
             ((System.ComponentModel.ISupportInitialize)top).BeginInit();
@@ -140,6 +141,17 @@
             BallTimer.Interval = 5;
             BallTimer.Tick += BallTimerEvent;
             // 
+            // gameStatelbl
+            // 
+            gameStatelbl.BackColor = Color.Transparent;
+            gameStatelbl.Font = new Font("맑은 고딕", 18F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            gameStatelbl.Location = new Point(265, 360);
+            gameStatelbl.Name = "gameStatelbl";
+            gameStatelbl.Size = new Size(379, 60);
+            gameStatelbl.TabIndex = 9;
+            gameStatelbl.Text = "label1";
+            gameStatelbl.TextAlign = ContentAlignment.TopCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -147,6 +159,7 @@
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(899, 678);
+            Controls.Add(gameStatelbl);
             Controls.Add(football);
             Controls.Add(goalKeeper);
             Controls.Add(top);
@@ -177,5 +190,6 @@
         private PictureBox football;
         private System.Windows.Forms.Timer KeeperTimer;
         private System.Windows.Forms.Timer BallTimer;
+        private Label gameStatelbl;
     }
 }
