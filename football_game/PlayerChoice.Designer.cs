@@ -34,26 +34,27 @@
             // 
             // button1
             // 
-            button1.BackColor = Color.White;
-            button1.Font = new Font("맑은 고딕", 12F);
+            button1.BackColor = Color.FromArgb(128, 255, 128);
+            button1.Font = new Font("맑은 고딕", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 129);
             button1.ForeColor = SystemColors.ControlText;
             button1.Location = new Point(334, 228);
             button1.Name = "button1";
             button1.Size = new Size(250, 60);
             button1.TabIndex = 0;
-            button1.Text = "player1";
+            button1.Text = "player1(공격)";
             button1.UseVisualStyleBackColor = false;
             button1.Click += player1_Click;
             // 
             // button2
             // 
-            button2.BackColor = Color.White;
-            button2.Font = new Font("맑은 고딕", 12F);
+            button2.BackColor = Color.FromArgb(128, 255, 128);
+            button2.Font = new Font("맑은 고딕", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 129);
             button2.Location = new Point(334, 321);
             button2.Name = "button2";
+            button2.RightToLeft = RightToLeft.Yes;
             button2.Size = new Size(250, 60);
             button2.TabIndex = 1;
-            button2.Text = "player2";
+            button2.Text = "player2(수비)";
             button2.UseVisualStyleBackColor = false;
             button2.Click += player2_Click;
             // 

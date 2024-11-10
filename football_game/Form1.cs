@@ -23,7 +23,6 @@ namespace football_game
         string roomNum;
         string state;
         string playerTarget;
-        bool aimSet = false;
         bool choice = false;
         string myChoice;
         string yourChoice;
@@ -48,7 +47,7 @@ namespace football_game
             {
                 client = new TcpClient();
                 // 서버 IP 주소와 포트
-                await client.ConnectAsync("10.10.20.116", 9900);
+                await client.ConnectAsync("127.0.0.1", 9900);
                 stream = client.GetStream();
                 await ReceiveDataAsync();
 
@@ -92,39 +91,39 @@ namespace football_game
                         gameState = 1;
                     }
                     // 상대방에게 내 타겟을 알려준다.
-                    else if(anw == "yourChoice")
+                    else if (anw == "yourChoice")
                     {
                         // 내 타겟을 yourChoice에 저장한다.
                         yourChoice = resList[1];
-                        if(player == "1")
+                        if (player == "1")
                         {
                             gameState++;
                             Score(myChoice, yourChoice);
                         }
-                        else if(player == "2")
+                        else if (player == "2")
                         {
                             gameState++;
                             Score(yourChoice, myChoice);
                         }
                     }
                     // 자기 자신에게 알려준다.
-                    else if(anw == "start")
+                    else if (anw == "start")
                     {
                         if (player == "1")
                         {
                             gameState++;
                             Score(myChoice, yourChoice);
-                            
+
                         }
                         else if (player == "2")
                         {
                             gameState++;
                             Score(yourChoice, myChoice);
-                            
+
                         }
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -144,13 +143,13 @@ namespace football_game
         // 득/실점 계산하는 함수
         private void Score(string onePlayer, string twoPlayer)
         {
-            
-           
+
+
             if (gameState != 3)
             {
                 return;
             }
-            
+
             BallTimer.Start();
             KeeperTimer.Start();
             ChangeGoalKeeperImage(twoPlayer);
@@ -172,11 +171,11 @@ namespace football_game
             }
 
             CheckScore();
-            
+
         }
         private async void SetGoalTargetEvent(object sender, EventArgs e)
         {
-            // false는 공을 찰 수 없는 상태
+            // false는 타겟을 누를 수 없는 상태
             if (choice == false)
             {
                 gameStatelbl.Text = ("상대방을 기다리고 있습니다");
@@ -231,7 +230,6 @@ namespace football_game
                     football.Location = new Point(430, 500);
                     ballX = 0;
                     ballY = 0;
-                    aimSet = false;
                     BallTimer.Stop();
                 }
             }
@@ -242,17 +240,17 @@ namespace football_game
             // 1p와 2p 타겟이 동일할때
             if (myChoice == yourChoice)
             {
-                if(player == "1")
+                if (player == "1")
                 {
                     miss++;
                     lblMissed.Text = "실점: " + miss;
                     gameStatelbl.Text = ("아 이광영선수 뭐하나요");
                 }
-                if(player == "2")
+                if (player == "2")
                 {
                     goal++;
                     lblScore.Text = "득점: " + goal;
-                    gameStatelbl.Text = ("아 조현우 선수 막아냅니다");
+                    gameStatelbl.Text = ("신명호 선수 이걸 막았어요");
                 }
             }
             else
@@ -270,12 +268,12 @@ namespace football_game
                     gameStatelbl.Text = ("신명호 키퍼 몸이 안좋나보네요");
                 }
             }
-            
+
             // 타겟 선택 초기화
             choice = true;
             // 게임상태 1로 초기화
             gameState = 1;
-            if(player == "1" && goal == 5 )
+            if (player == "1" && goal == 5)
             {
                 gameStatelbl.Text = ("축하드립니다 1p 승리!");
             }
@@ -310,7 +308,5 @@ namespace football_game
                     break;
             }
         }
-
-        
     }
 }
